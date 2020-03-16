@@ -21,14 +21,14 @@ VALUES
 
 INSERT INTO "word" ("id", "language_id", "original", "translation", "next")
 VALUES
-  (1, 1, 'Backpfeifengesicht', 'A slappable face, a face that needs to be slapped', 2),
-  (2, 1, 'Lebensmüde', 'Life tired, Weary of life', 3),
-  (3, 1, 'Sitzpinkler', 'Seat wee-er, A man who sits to pee', 4),
-  (4, 1, 'Fingerspitzengefühl', 'Fingertip feeling, or sensitivity to others feelings, empathy', 5),
-  (5, 1, 'Kummerspeck', 'Grief Bacon, excess weight gained from overeating while grief stricken', 6),
-  (6, 1, 'Schnapsidee', 'Schnapps Idea, An idea that lacks a sober foundation, a bad idea', 7),
-  (7, 1, 'Fremdschämen ', 'Exterior shame, the shame you feel in response to anothers humiliation', 8),
-  (8, 1, 'Handschuschenschneeballwerfer', 'Hand shoe snowball thrower, Someone who will only throw a snowball while wearing gloves, a coward.', null);
+  (1, 1, 'Backpfeifengesicht',  'A slappable face', 2),
+  (2, 1, 'Gluhbirne',           'Glow pear', 3),
+  (3, 1, 'Sitzpinkler',         'Seat wee-er', 4),
+  (4, 1, 'Fingerspitzengefühl', 'Fingertip feeling', 5),
+  (5, 1, 'Kummerspeck',         'Grief Bacon', 6),
+  (6, 1, 'Schnapsidee',          'Schnapps Idea', 7),
+  (7, 1, 'Fremdschämen ',       'Exterior shame' , 8),
+  (8, 1, 'Handschuschenschneeballwerfer', 'Hand shoe snowball thrower',null);
 
 UPDATE "language" SET head = 1 WHERE id = 1;
 
