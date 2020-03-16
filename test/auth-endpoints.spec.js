@@ -1,23 +1,23 @@
-const jwt = require('jsonwebtoken')
-const app = require('../src/app')
-const helpers = require('./test-helpers')
+const jwt = require('jsonwebtoken');
+const app = require('../src/app');
+const helpers = require('./test-helpers');
 
 describe('Auth Endpoints', function () {
   let db
 
-  const testUsers = helpers.makeUsersArray()
-  const testUser = testUsers[0]
+  const testUsers = helpers.makeUsersArray();
+  const testUser = testUsers[0];
 
   before('make knex instance', () => {
-    db = helpers.makeKnexInstance()
-    app.set('db', db)
-  })
+    db = helpers.makeKnexInstance();
+    app.set('db', db);
+  });
 
-  after('disconnect from db', () => db.destroy())
+  after('disconnect from db', () => db.destroy());
 
-  before('cleanup', () => helpers.cleanTables(db))
+  before('cleanup', () => helpers.cleanTables(db));
 
-  afterEach('cleanup', () => helpers.cleanTables(db))
+  afterEach('cleanup', () => helpers.cleanTables(db));
 
   /**
    * @description Get token for login
@@ -30,7 +30,7 @@ describe('Auth Endpoints', function () {
       )
     )
 
-    const requiredFields = ['username', 'password']
+    const requiredFields = ['username', 'password'];
 
     requiredFields.forEach(field => {
       const loginAttemptBody = {
@@ -51,7 +51,7 @@ describe('Auth Endpoints', function () {
     })
 
     it(`responds 400 'invalid username or password' when bad username`, () => {
-      const userInvalidUser = { username: 'user-not', password: 'existy' }
+      const userInvalidUser = { username: 'user-not', password: 'existy' };
       return supertest(app)
         .post('/api/auth/token')
         .send(userInvalidUser)
@@ -59,7 +59,7 @@ describe('Auth Endpoints', function () {
     })
 
     it(`responds 400 'invalid username or password' when bad password`, () => {
-      const userInvalidPass = { username: testUser.username, password: 'incorrect' }
+      const userInvalidPass = { username: testUser.username, password: 'incorrect' };
       return supertest(app)
         .post('/api/auth/token')
         .send(userInvalidPass)

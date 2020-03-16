@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
-const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
+const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
 
 const UserService = {
   hasUserWithUserName(db, username) {
@@ -46,7 +46,7 @@ const UserService = {
       const [languageId] = await trx
         .into('language')
         .insert([
-          { name: 'French', user_id },
+          { name: 'German', user_id },
         ], ['id'])
 
       // when inserting words,
@@ -58,14 +58,14 @@ const UserService = {
         .first()
 
       const languageWords = [
-        ['entraine toi', 'practice', 2],
-        ['bonjour', 'hello', 3],
-        ['maison', 'house', 4],
-        ['développeur', 'developer', 5],
-        ['traduire', 'translate', 6],
-        ['incroyable', 'amazing', 7],
-        ['chien', 'dog', 8],
-        ['chat', 'cat', null],
+        ['Backpfeifengesicht', 'A slappable face, a face that needs to be slapped', 2],
+        ['Lebensmüde', 'Life tired, Weary of life', 3],
+        ['Sitzpinkler', 'Seat wee-er, A man who sits to pee', 4],
+        ['Fingerspitzengefühl', 'Fingertip feeling, or sensitivity to others feelings, empathy', 5],
+        ['Kummerspeck', 'Grief Bacon, excess weight gained from overeating while grief stricken', 6],
+        ['Schnapsidee', 'Schnapps Idea, An idea that lacks a sober foundation, a bad idea', 7],
+        ['Fremdschämen ', 'Exterior shame, the shame you feel in response to anothers humiliation', 8],
+        ['Handschuschenschneeballwerfer', 'Hand shoe snowball thrower, Someone who will only throw a snowball while wearing gloves, a coward.', null]
       ]
 
       const [languageHeadId] = await trx
@@ -80,7 +80,7 @@ const UserService = {
               : null
           })),
           ['id']
-        )
+        );;
 
       await trx('language')
         .where('id', languageId.id)
