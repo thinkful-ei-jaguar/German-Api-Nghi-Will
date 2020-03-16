@@ -58,14 +58,14 @@ const UserService = {
         .first()
 
       const languageWords = [
-        ['Backpfeifengesicht', 'A slappable face, a face that needs to be slapped', 2],
-        ['Lebensmüde', 'Life tired, Weary of life', 3],
-        ['Sitzpinkler', 'Seat wee-er, A man who sits to pee', 4],
-        ['Fingerspitzengefühl', 'Fingertip feeling, or sensitivity to others feelings, empathy', 5],
-        ['Kummerspeck', 'Grief Bacon, excess weight gained from overeating while grief stricken', 6],
-        ['Schnapsidee', 'Schnapps Idea, An idea that lacks a sober foundation, a bad idea', 7],
-        ['Fremdschämen ', 'Exterior shame, the shame you feel in response to anothers humiliation', 8],
-        ['Handschuschenschneeballwerfer', 'Hand shoe snowball thrower, Someone who will only throw a snowball while wearing gloves, a coward.', null]
+        ['Backpfeifengesicht', 'A slappable face', 2],
+        ['Lebensmüde', 'Life tired', 3],
+        ['Sitzpinkler', 'Seat wee-er', 4],
+        ['Fingerspitzengefühl', 'Fingertip feeling', 5],
+        ['Kummerspeck', 'Grief Bacon', 6],
+        ['Schnapsidee', 'Schnapps Idea', 7],
+        ['Fremdschämen ', 'Exterior shame', 8],
+        ['Handschuschenschneeballwerfer', 'Hand shoe snowball thrower,', null]
       ]
 
       const [languageHeadId] = await trx

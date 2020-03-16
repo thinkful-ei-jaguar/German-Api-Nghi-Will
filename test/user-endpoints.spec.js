@@ -175,14 +175,14 @@ describe('User Endpoints', function () {
           name: 'German',
           total_score: 0,
           words: [
-            { original: 'Backpfeifengesicht'                , translation: 'A slappable face' } ,
+            { original: 'Backpfeifengesicht'                , translation: 'A slappable face' },
             { original: 'Lebensmüde'                        , translation: 'Life tired'},
             { original: 'Sitzpinkler'                       , translation: 'Seat wee-er'},
             { original: 'Fingerspitzengefü'                 , translation: 'Fingertip feeling'},
             { original: 'Kummerspeck'                       , translation: 'Grief Bacon'},
             { original: 'Schnapsidee'                       , translation: 'Schnapps Idea'},
             { original: 'Fremdschämen '                     , translation: 'Exterior shame'},
-            { original: 'Handschuschenschneeballwerfer'     , translation: 'Hand shoe snowball thrower,'},
+            { original: 'Handschuschenschneeballwerfer'     , translation: 'Hand shoe snowball thrower.'},
           ]
         }
         return supertest(app)
