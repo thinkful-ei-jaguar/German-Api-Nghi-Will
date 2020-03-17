@@ -7,9 +7,13 @@ const errorHandler = require("./middleware/error-handler");
 const authRouter = require("./auth/auth-router");
 const languageRouter = require("./language/language-router");
 const userRouter = require("./user/user-router");
+const bodyParser = require('body-parser');
 
 const app = express();
 
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(
   morgan(NODE_ENV === "production" ? "tiny" : "common", {
     skip: () => NODE_ENV === "test"
