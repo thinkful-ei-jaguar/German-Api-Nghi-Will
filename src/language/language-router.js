@@ -16,6 +16,7 @@ languageRouter.use(requireAuth).use(async (req, res, next) => {
       return res.status(404).json({
         error: `You don't have any languages`
       });
+    req.language = language;
     next();
   } catch (error) {
     next(error);
