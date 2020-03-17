@@ -21,13 +21,14 @@ VALUES
 INSERT INTO "word" ("id", "language_id", "original", "translation", "next")
 VALUES
   (1, 1, 'Backpfeifengesicht',  'A slappable face', 2),
-  (2, 1, 'Gluhbirne',           'Glow pear', 3),
-  (3, 1, 'Sitzpinkler',         'Seat wee-er', 4),
-  (4, 1, 'Fingerspitzengefühl', 'Fingertip feeling', 5),
-  (5, 1, 'Kummerspeck',         'Grief Bacon', 6),
-  (6, 1, 'Schnapsidee',          'Schnapps Idea', 7),
-  (7, 1, 'Fremdschämen ',       'Exterior shame' , 8),
-  (8, 1, 'Handschuschenschneeballwerfer', 'Hand shoe snowball thrower',null);
+  (2, 1, 'Lebensmude', 'Life tired', 3),
+  (3, 1, 'Gluhbirne',           'Glow pear', 4),
+  (4, 1, 'Sitzpinkler',         'Seat wee-er', 5),
+  (5, 1, 'Fingerspitzengefuhl', 'Fingertip feeling', 6),
+  (6, 1, 'Kummerspeck',         'Grief Bacon', 7),
+  (7, 1, 'Schnapsidee',          'Schnapps Idea', 8),
+  (8, 1, 'Fremdschamen ',       'Exterior shame' , 9),
+  (9, 1, 'Handschuschenschneeballwerfer', 'Hand shoe snowball thrower',null);
 
 UPDATE "language" SET head = 1 WHERE id = 1;
 
