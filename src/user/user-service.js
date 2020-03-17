@@ -59,14 +59,14 @@ const UserService = {
 
       const languageWords = [
         ['Backpfeifengesicht', 'A slappable face', 2],
-        ['Lebensmüde', 'Life tired', 3],
+        ['Lebensmude', 'Life tired', 3],
         ['Sitzpinkler', 'Seat wee-er', 4],
         ['Fingerspitzengefühl', 'Fingertip feeling', 5],
         ['Kummerspeck', 'Grief Bacon', 6],
         ['Schnapsidee', 'Schnapps Idea', 7],
         ['Fremdschämen ', 'Exterior shame', 8],
         ['Handschuschenschneeballwerfer', 'Hand shoe snowball thrower,', null]
-      ]
+      ];
 
       const [languageHeadId] = await trx
         .into('word')
