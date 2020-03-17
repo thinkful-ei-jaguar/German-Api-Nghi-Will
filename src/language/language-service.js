@@ -1,3 +1,5 @@
+const LinkedList = require("./LinkedList");
+
 const LanguageService = {
   getUsersLanguage(db, user_id) {
     return db
@@ -62,7 +64,6 @@ const LanguageService = {
       .where({ id: wordId })
       .first();
   },
-
   updateWord(db, id, data) {
     return db
       .from("word")
