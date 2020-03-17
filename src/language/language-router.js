@@ -55,7 +55,34 @@ languageRouter.get("/head", async (req, res, next) => {
 
 languageRouter.post("/guess", async (req, res, next) => {
   try {
-    const guess = req.body.guess;
+    for (const field of ["guess", "original"]) {
+      if (!req.body[field])
+        return res.status(400).json({
+          error: `You didn't make a guess.`
+        });
+    }
+    // const answer = LanguageService.getAnswer(
+    //   req.app.get("db"),
+    //   original
+    // ).toLowerCase();
+
+    /**
+    Given incorrect guess
+      - responds with incorrect and moves head
+      - moves the word 1 space and updates incorrect count
+    Given correct guess
+      - responds with correct and moves head
+      - moves the word 2 spaces, increases score and correct count
+    */
+
+    // if (guess.toLowerCase() === answer) {
+    //   LanguageService.updateTotalScore(req.app.get("db"), req.user.id);
+    //   return res.status(200).json({
+    //     message: `Correct`
+    //   });
+    // }
+
+    return res.status(200).end();
   } catch (err) {
     next(err);
   }

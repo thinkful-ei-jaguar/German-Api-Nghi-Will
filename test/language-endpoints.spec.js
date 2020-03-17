@@ -63,7 +63,7 @@ describe("Language Endpoints", function() {
   /**
    * @description Get languages for a user
    **/
-  describe.only(`GET /api/language`, () => {
+  describe(`GET /api/language`, () => {
     const [usersLanguage] = testLanguages.filter(
       lang => lang.user_id === testUser.id
     );
@@ -146,7 +146,7 @@ describe("Language Endpoints", function() {
   /**
    * @description Submit a new guess for the language
    **/
-  describe(`POST /api/language/guess`, () => {
+  describe.only(`POST /api/language/guess`, () => {
     const [testLanguage] = testLanguages;
     const testLanguagesWords = testWords.filter(
       w => w.language_id === testLanguage.id
