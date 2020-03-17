@@ -16,25 +16,6 @@ languageRouter.use(requireAuth).use(async (req, res, next) => {
       return res.status(404).json({
         error: `You don't have any languages`
       });
-
-    req.language = language;
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
-
-languageRouter.get("/", async (req, res, next) => {
-  try {
-    const words = await LanguageService.getLanguageWords(
-      req.app.get("db"),
-      req.language.id
-    );
-
-    res.json({
-      language: req.language,
-      words
-    });
     next();
   } catch (error) {
     next(error);
@@ -42,13 +23,24 @@ languageRouter.get("/", async (req, res, next) => {
 });
 
 languageRouter.get("/head", async (req, res, next) => {
-  // implement me
-  res.send("implement me!");
+  try {
+    const nextWord = await LanguageService.getLanguageHead(
+      req.app.get("db"),
+      req.language.id
+    );
+    res.json({ nextWord });
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 languageRouter.post("/guess", async (req, res, next) => {
-  // implement me
-  res.send("implement me!");
+  try {
+    const guess = req.body.guess;
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = languageRouter;

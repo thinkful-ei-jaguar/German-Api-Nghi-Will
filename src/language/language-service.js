@@ -28,6 +28,55 @@ const LanguageService = {
       )
       .where({ language_id })
   },
+  
+  
+  getLanguageHead(db, language_id) {
+    return db
+        .from('word')
+        .select(
+            'id',
+            'language_id',
+            'original',
+            'translation',
+            'next',
+            'memory_value',
+            'correct_count',
+            'incorrect_count',
+        )
+        .where({ language_id })
+        .first()
+  },
+  
+  getNextWord(db, wordId) {
+    return db
+        .from('word')
+        .select(
+            'id',
+            'language_id',
+            'original',
+            'translation',
+            'next',
+            'memory_value',
+            'correct_count',
+            'incorrect_count',
+        )
+        .where({ id: wordId })
+        .first()
+  },
+  
+
+  
+  updateWord(db, id, data) {
+    return db('word')
+        .where({ id })
+        .update({ ...data });
+  },
+  
+  updateTotalScore(db, id, total) {
+    return db('language')
+        .where({ id })
+        .update({ total_score: total });
+  },
 }
 
-module.exports = LanguageService
+module.exports = LanguageService;
