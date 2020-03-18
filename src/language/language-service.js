@@ -90,6 +90,28 @@ const LanguageService = {
       .from("word")
       .select("translation")
       .where({ original });
+  },
+
+  createLinkedList(head, words) {
+    let wordList = this.createMap(words);
+    let LL = new LinkedList();
+    let currNode = head;
+
+    while (currNode !== null) {
+      const word = wordList.get(currNode);
+      LL.insertLast(word.original);
+      currNode = word.next;
+    }
+
+    return LL;
+  },
+  // Store words in map for easier lookup
+  createMap(words) {
+    let wordsList = new Map();
+    for (const index of words) {
+      wordsList.set(index.id, { original: index.original, next: index.next });
+    }
+    return wordsList;
   }
 };
 

@@ -1,6 +1,5 @@
 const express = require("express");
 const LanguageService = require("./language-service");
-const LinkedList = require("./LinkedList");
 const { requireAuth } = require("../middleware/jwt-auth");
 const jsonBodyParser = express.json();
 
@@ -94,36 +93,33 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
       req.language.total_score
     );
 
-    // let LL = new LinkedList();
-    // for (const i of words) {
-    //   LL.insertLast()
-    // }
-    // const listSize = LL.size();
+    let LL = LanguageService.createLinkedList(req.language.head, words);
+    const listSize = LL.size();
 
-    // const currentWord = LL.head.value;
+    const currentWord = LL.head.value;
 
-    // if (LL.head.value.memory_value >= listSize) {
-    //   LL.remove(words[0]);
-    //   LL.insertLast(words[0]);
-    // } else {
-    //   LL.remove(words[0]);
-    //   LL.insertAt(words[0].memory_value, words[0]);
-    // }
+    if (LL.head.value.memory_value >= listSize) {
+      LL.remove(words[0]);
+      LL.insertLast(words[0]);
+    } else {
+      LL.remove(words[0]);
+      LL.insertAt(words[0].memory_value, words[0]);
+    }
 
-    // const sortedList = LL.displayList();
+    const sortedList = LL.displayList();
 
-    // for (let i = 0; i < sortedList.length; i++) {
-    //   if (sortedList[i + 1]) {
-    //     sortedList[i].next = sortedList[i + 1].id;
-    //   } else {
-    //     sortedList[i].next = null;
-    //   }
-    //   await LanguageService.updateWord(
-    //     req.app.get("db"),
-    //     sortedList[i].id,
-    //     sortedList[i]
-    //   );
-    // }
+    for (let i = 0; i < sortedList.length; i++) {
+      if (sortedList[i + 1]) {
+        sortedList[i].next = sortedList[i + 1].id;
+      } else {
+        sortedList[i].next = null;
+      }
+      await LanguageService.updateWord(
+        req.app.get("db"),
+        sortedList[i].id,
+        sortedList[i]
+      );
+    }
 
     /**
        *
@@ -145,7 +141,6 @@ languageRouter.post("/guess", jsonBodyParser, async (req, res, next) => {
       isCorrect: guess.toLowerCase() === words[0].translation.toLowerCase(),
       guess: guess
     };
-    // let results = "hi";
     return res.status(200).json(results);
   } catch (error) {
     next(error);
