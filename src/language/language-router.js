@@ -48,10 +48,11 @@ languageRouter.get("/head", async (req, res, next) => {
     );
 
     res.status(200).json({
-      nextWord: head.original,
+      currentWord: head.original,
       totalScore: req.language.total_score,
       wordCorrectCount: head.correct_count,
-      wordIncorrectCount: head.incorrect_count
+      wordIncorrectCount: head.incorrect_count,
+      answer : head.translation
     });
     next();
   } catch (error) {
