@@ -21,7 +21,7 @@ VALUES
 INSERT INTO "word" ("id", "language_id", "original", "translation", "next")
 VALUES
   (1, 1, 'Backpfeifengesicht',  'A slappable face', 2),
-  (2, 1, 'Lebensmude', 'Life tired', 3),
+  (2, 1, 'Lebensmude',          'Life tired', 3),
   (3, 1, 'Gluhbirne',           'Glow pear', 4),
   (4, 1, 'Sitzpinkler',         'Seat wee-er', 5),
   (5, 1, 'Fingerspitzengefuhl', 'Fingertip feeling', 6),
