@@ -1,4 +1,4 @@
-const LinkedList = require("./LinkedList");
+
 
 const LanguageService = {
   getUsersLanguage(db, user_id) {
@@ -31,22 +31,26 @@ const LanguageService = {
       .where({ language_id });
   },
 
-  getLanguageHead(db, language_id) {
+  getLanguageHead(db, head_id) {
     return db
       .from("word")
-      .select(
-        "id",
-        "language_id",
-        "original",
-        "translation",
-        "next",
-        "memory_value",
-        "correct_count",
-        "incorrect_count"
-      )
-      .where({ language_id })
-      .first();
+      .select( '*')
+      .where( 'id',head_id) ;
   },
+  
+  updateLanguage(db, user_id, newLanguageFields) {
+    return db('language')
+        .where( {user_id} )
+        .update(newLanguageFields);
+  },
+  
+  updateWord(db, word_id, newWordFields) {
+    return db('word')
+        .where('id', word_id)
+        .update(newWordFields);
+  },
+  /*
+  
 
   getNextWord(db, wordId) {
     return db
@@ -77,12 +81,14 @@ const LanguageService = {
       db
         .from("language")
         .select("total_score")
-        .where({ user_id }) + 1;
-
+        .where('language.user_id', user_id);
+    
+      const new_total_score = total_score + 1;
+    
     return db
       .from("language")
       .where({ user_id })
-      .update({ total_score });
+      .update({ total_score : new_total_score});
   },
 
   getAnswer(db, original) {
@@ -113,6 +119,8 @@ const LanguageService = {
     }
     return wordsList;
   }
+  */
+  
 };
 
 module.exports = LanguageService;
