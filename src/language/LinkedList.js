@@ -1,6 +1,7 @@
 class _Node {
   constructor(value, next) {
-    (this.value = value), (this.next = next);
+        this.value = value;
+        this.next = next;
   }
 }
 
@@ -39,7 +40,7 @@ class LinkedList {
     if (this.head == null) {
       return;
     }
-    if (this.head.value == key) {
+    if (this.head.value === key) {
       this.insertFirst(itemToInsert);
       return;
     }
@@ -56,24 +57,25 @@ class LinkedList {
 
     prevNode.next = new _Node(itemToInsert, currNode);
   }
-  insertAt(nthPosition, itemToInsert) {
+  insertAt(itemToInsert, nthPosition,) {
     if (nthPosition < 0) {
-      throw new Error("Position error");
+      throw new Error("Position error, can not be a negative number");
     }
     if (nthPosition === 0) {
       this.insertFirst(itemToInsert);
+    } if (nthPosition > this.size()) {
+      this.insertLast(itemToInsert)
     } else {
-      let node = this._findNthElement(nthPosition - 1);
+      //Run only if the nthPosition is not the head or tail
+      const node = this._findNthElement(nthPosition - 1);
       const newNode = new _Node(itemToInsert, null);
-      if (!node) {
-        // we are at the next value of the last element in the linked list
-        node = newNode;
-      } else {
-        newNode.next = node.next;
-        node.next = newNode;
+     newNode.next = node.next;
+     node.next = newNode;
+      
       }
     }
-  }
+  
+  
   _findNthElement(position) {
     let node = this.head;
     for (let i = 0; i < position; i++) {
@@ -143,5 +145,6 @@ class LinkedList {
     return arr;
   }
 }
+
 
 module.exports = LinkedList;
