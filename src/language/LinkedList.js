@@ -1,7 +1,7 @@
 class _Node {
   constructor(value, next) {
-        this.value = value;
-        this.next = next;
+    this.value = value;
+    this.next = next;
   }
 }
 
@@ -9,90 +9,26 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
-
+  
   insertFirst(item) {
-    this.head = new _Node(item, this.head);
+    this.head = new _Node(item, null);
   }
-
+  
   insertLast(item) {
-    if (this.head === null) {
-      this.insertFirst(item);
-    } else {
+    if (this.head === null) this.insertFirst(item);
+    else {
       let tempNode = this.head;
-      while (tempNode.next !== null) {
-        tempNode = tempNode.next;
-      }
+      while (tempNode.next !== null) tempNode = tempNode.next;
       tempNode.next = new _Node(item, null);
     }
   }
-
-  insertAfter(key, itemToInsert) {
-    let tempNode = this.head;
-    while (tempNode !== null && tempNode.value !== key) {
-      tempNode = tempNode.next;
-    }
-    if (tempNode !== null) {
-      tempNode.next = new _Node(itemToInsert, tempNode.next);
-    }
-  }
-
-  insertBefore(key, itemToInsert) {
-    if (this.head == null) {
-      return;
-    }
-    if (this.head.value === key) {
-      this.insertFirst(itemToInsert);
-      return;
-    }
-    let prevNode = null;
-    let currNode = this.head;
-    while (currNode !== null && currNode.value !== key) {
-      prevNode = currNode;
-      currNode = currNode.next;
-    }
-    if (currNode === null) {
-      console.log("Node not found to insert");
-      return;
-    }
-
-    prevNode.next = new _Node(itemToInsert, currNode);
-  }
-  insertAt(itemToInsert, nthPosition,) {
-    if (nthPosition < 0) {
-      throw new Error("Position error, can not be a negative number");
-    }
-    if (nthPosition === 0) {
-      this.insertFirst(itemToInsert);
-    } if (nthPosition > this.size()) {
-      this.insertLast(itemToInsert)
-    } else {
-      //Run only if the nthPosition is not the head or tail
-      const node = this._findNthElement(nthPosition - 1);
-      const newNode = new _Node(itemToInsert, null);
-     newNode.next = node.next;
-     node.next = newNode;
-      
-      }
-    }
   
-  
-  _findNthElement(position) {
-    let node = this.head;
-    for (let i = 0; i < position; i++) {
-      node = node.next;
-    }
-    return node;
-  }
   remove(item) {
-    if (!this.head) {
-      return null;
-    }
-
+    if (!this.head) return null;
     if (this.head.value === item) {
       this.head = this.head.next;
       return;
     }
-
     let currNode = this.head;
     let previousNode = this.head;
     while (currNode !== null && currNode.value !== item) {
@@ -100,13 +36,12 @@ class LinkedList {
       currNode = currNode.next;
     }
     if (currNode === null) {
-      console.log("Item not found");
       return;
     }
     previousNode.next = currNode.next;
   }
+  
   find(item) {
-    //find a node
     let currNode = this.head;
     if (!this.head) {
       return null;
@@ -120,31 +55,95 @@ class LinkedList {
     }
     return currNode;
   }
-
-  size() {
-    //returns the size of the linked list
-    let counter = 0;
+  
+  insertBefore(item, key) {
+    if (this.head === null) {
+      return null;
+    }
     let currNode = this.head;
-    if (!currNode) {
-      return counter;
-    } else counter++;
-    while (!(currNode.next == null)) {
-      counter++;
+    let prevNode = this.head;
+    while (currNode.value !== key && currNode !== null) {
+      prevNode = currNode;
       currNode = currNode.next;
     }
-    return counter;
+    if (currNode === null) {
+      return;
+    }
+    prevNode.next = new _Node(item, currNode);
   }
-  displayList() {
-    //displays the linked list
-    const arr = [];
+  
+  insertAfter(item, key) {
+    if (this.head === null) {
+      return null;
+    }
     let currNode = this.head;
-    while (currNode !== null) {
-      arr.push(currNode.value);
+    while (currNode.value !== key && currNode !== null) {
       currNode = currNode.next;
     }
-    return arr;
+    if (currNode === null) {
+      return;
+    }
+    let tempNode = currNode.next;
+    currNode.next = new _Node(item, tempNode);
+  }
+  
+  insertAt(list, item, position) {
+    if (position < 0) {
+      throw new Error('Position error');
+    }
+    if (position === 0) {
+      this.insertFirst(item);
+    }
+    if (position > size(list)) {
+      this.insertLast(item);
+    } else {
+      // Find the node which we want to insert after
+      const node = this._findNthElement(position - 1);
+      const newNode = new _Node(item, null);
+      newNode.next = node.next;
+      node.next = newNode;
+    }
+  }
+  
+  _findNthElement(position) {
+    let node = this.head;
+    for (let i=0; i<position; i++) {
+      node = node.next;
+    }
+    return node;
   }
 }
 
+function display(list) {
+  const arr = [];
+  let currNode = list.head;
+  
+  while (currNode !== null) {
+    arr.push(currNode.value);
+    currNode = currNode.next;
+  }
+  
+  return arr;
+}
 
-module.exports = LinkedList;
+function size(list){
+  let counter = 0;
+  let currNode = list.head;
+  if(!currNode){
+    return counter;
+  }
+  else
+    counter++;
+  // eslint-disable-next-line eqeqeq
+  while (!(currNode.next == null)) {
+    counter++;
+    currNode = currNode.next;
+  }
+  return counter;
+}
+
+module.exports = {
+  LinkedList,
+  display,
+  size
+};
