@@ -69,91 +69,54 @@ languageRouter
     });
 
 languageRouter.post("/guess", jsonParser, async (req, res, next) => {
-        try {
-            const { guess } = req.body;
-            
-    if (!req.body.guess) {
-      return res.status(400).json({ error: `You did not make a guess.` });
-            }
-            
-    const words = await LanguageService.getLanguageWords(
-      req.app.get("db"),
-      req.language.id
-    );
-            
-    /**
-      If the answer was correct:
-      Double the memory value
-      Else, if the answer was wrong:
-      Reset memory value to 1
-     */
-    if (guess.toLowerCase() === words[0].translation.toLowerCase()) {
-      words[0].correct_count++;
-      words[0].memory_value *= 2;
-                req.language.total_score++;
-            } else {
-      words[0].incorrect_count++;
-      words[0].memory_value = 1;
-            }
-            
-    await LanguageService.updateTotalScore(
-      req.app.get("db"),
-      req.language.id,
-      req.language.total_score
-    );
-    
-    let LL = LanguageService.createLinkedList(req.language.head, words);
-    const listSize = LL.size();
-            
-    const currentWord = LL.head.value;
-    
-    if (LL.head.value.memory_value >= listSize) {
-      LL.remove(words[0]);
-      LL.insertLast(words[0]);
-    } else {
-      LL.remove(words[0]);
-      LL.insertAt(words[0].memory_value, words[0]);
+    const { guess } = req.body;
+    if (!req.body) {
+        return res.status(400).json({
+            error: "Missing request body"
+        });
     }
-            
-    const sortedList = LL.displayList();
-
-    for (let i = 0; i < sortedList.length; i++) {
-      if (sortedList[i + 1]) {
-        sortedList[i].next = sortedList[i + 1].id;
-      } else {
-        sortedList[i].next = null;
-      }
-                await LanguageService.updateWord(
-        req.app.get("db"),
-        sortedList[i].id,
-        sortedList[i]
-                );
-            }
-            
-    /**
-       *
-    "nextWord": "test-next-word-from-incorrect-guess",
-    "wordCorrectCount": 888,
-    "wordIncorrectCount": 111,
-    "totalScore": 999,
-    "answer": "test-answer-from-incorrect-guess",
-    "isCorrect": false
-       */
-            
-    const results = {
-      currentWord: currentWord.original,
-      nextWord: sortedList[0].original,
-      wordCorrectCount: sortedList[0].correct_count,
-      wordIncorrectCount: sortedList[0].incorrect_count,
-                totalScore: req.language.total_score,
-      answer: words[0].translation,
-      isCorrect: guess.toLowerCase() === words[0].translation.toLowerCase(),
-            
-            };
-    return res.status(200).json(results);
-  } catch (error) {
-            next(error);
+    if (!guess)
+        return res.status(400).json({
+            error: `Missing 'guess' in request body`
+        });
+    
+    try {
+        const words = await LanguageService.getLanguageWords(
+            req.app.get("db"),
+            req.language.id
+        );
+        
+        let SLL = LanguageService.populateLinkedList(req.language, words);
+        
+        const node = SLL.head;
+        const answer = node.value.translation;
+        let isCorrect;
+        
+        if (guess === answer) {
+            isCorrect = true;
+            SLL.head.value.memory_value = node.value.memory_value * 2;
+            SLL.head.value.correct_count = SLL.head.value.correct_count + 1;
+            SLL.total_score = SLL.total_score + 1;
+        } else {
+            isCorrect = false;
+            SLL.head.value.memory_value = 1;
+            SLL.head.value.incorrect_count = SLL.head.value.incorrect_count + 1;
         }
-    });
-
+        
+        SLL.moveHeadBy(SLL.head.value.memory_value);
+        
+        await LanguageService.persistLinkedList(req.app.get("db"), SLL);
+        
+        return res.status(200).json({
+            nextWord: SLL.head.value.original,
+            wordCorrectCount: SLL.head.value.correct_count,
+            wordIncorrectCount: SLL.head.value.incorrect_count,
+            totalScore: SLL.total_score,
+            answer: answer,
+            isCorrect: isCorrect
+        });
+    } catch (error) {
+        next(error);
+    }
+});
 module.exports = languageRouter;
