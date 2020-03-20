@@ -84,9 +84,9 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
     let SLL = await LanguageService.createLinkedList(req.language, words);
 
     // Update scores and double memory value if guess is correct
-    const answer = SLL.head.value.translation;
+    const answer = SLL.head.value.translation.toLowerCase();
     let isCorrect;
-    if (guess === answer) {
+    if (guess.toLowerCase() === answer) {
       isCorrect = true;
       SLL.head.value.memory_value *= 2;
       SLL.head.value.correct_count++;
