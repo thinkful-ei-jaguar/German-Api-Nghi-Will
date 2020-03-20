@@ -5,6 +5,9 @@ const { requireAuth } = require("../middleware/jwt-auth");
 const languageRouter = express.Router();
 const jsonParser = express.json();
 
+
+
+
 languageRouter
   .use(requireAuth)
   .use(jsonParser)
@@ -51,6 +54,10 @@ languageRouter.use(jsonParser).get("/head", async (req, res, next) => {
       req.language.id
     );
 
+    /*
+    * TODO: this should ideally include the currentWord as well as the nextWord
+    * */
+    
     res.status(200).json({
       nextWord: head.original,
       totalScore: req.language.total_score,
