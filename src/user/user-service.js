@@ -57,13 +57,21 @@ const UserService = {
 
       const languageWords = [
         ["Backpfeifengesicht", "A slappable face", 2],
-        ["Lebensmude", "Life tired", 3],
-        ["Sitzpinkler", "Seat wee-er", 4],
-        ["Fingerspitzengefuhl", "Fingertip feeling", 5],
-        ["Kummerspeck", "Grief Bacon", 6],
-        ["Schnapsidee", "Schnapps Idea", 7],
-        ["Fremdschamen ", "Exterior shame", 8],
-        ["Handschuschenschneeballwerfer", "Hand shoe snowball thrower", null]
+        ["Lebensmude", "Tired of life", 3],
+        ["Gluhbirne", "Glow pear", 4],
+        ["Sitzpinkler", "Wimp", 5],
+        ["Fingerspitzengefuhl", "Instinct", 6],
+        ["Kummerspeck", "Excess fat gained from emotional eating", 7],
+        ["Schnapsidee", "Crazy idea", 8],
+        ["Fremdschamen ", "Embarrassed by someone", 9],
+        ["Handschuschenschneeballwerfer", "Coward", 10],
+        ["Treppenwitz", "Brain fart", 11],
+        ["Verschlimmbessern", "Make things worse", 12],
+        ["Luftschloss", "Need reality check", 13],
+        ["Fruhjahrsmudigkeit", "Fatigue during springtime", 14],
+        ["Kuddelmuddel", "A mess", 15],
+        ["Erklarungsnot", "Emergency excuse", 16],
+        ["Geborgenheit", "Peace and comfort in life", null]
       ];
 
       const [languageHeadId] = await trx.into("word").insert(

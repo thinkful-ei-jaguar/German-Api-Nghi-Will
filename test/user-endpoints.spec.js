@@ -182,18 +182,53 @@ describe("User Endpoints", function() {
           total_score: 0,
           words: [
             { original: "Backpfeifengesicht", translation: "A slappable face" },
-            { original: "Lebensmude", translation: "Life tired" },
-            { original: "Sitzpinkler", translation: "Seat wee-er" },
+            { original: "Lebensmude", translation: "Tired of life" },
+            { original: "Gluhbirne", translation: "Glow pear" },
+            { original: "Sitzpinkler", translation: "Wimp" },
             {
               original: "Fingerspitzengefuhl",
-              translation: "Fingertip feeling"
+              translation: "Instinct"
             },
-            { original: "Kummerspeck", translation: "Grief Bacon" },
-            { original: "Schnapsidee", translation: "Schnapps Idea" },
-            { original: "Fremdschamen ", translation: "Exterior shame" },
+            {
+              original: "Kummerspeck",
+              translation: "Excess fat gained from emotional eating"
+            },
+            { original: "Schnapsidee", translation: "Crazy idea" },
+            {
+              original: "Fremdschamen ",
+              translation: "Embarrassed by someone"
+            },
             {
               original: "Handschuschenschneeballwerfer",
-              translation: "Hand shoe snowball thrower"
+              translation: "Coward"
+            },
+            {
+              original: "Treppenwitz",
+              translation: "Brain fart"
+            },
+            {
+              original: "Verschlimmbessern",
+              translation: "Make things worse"
+            },
+            {
+              original: "Luftschloss",
+              translation: "Need reality check"
+            },
+            {
+              original: "Fruhjahrsmudigkeit",
+              translation: "Fatigue during springtime"
+            },
+            {
+              original: "Kuddelmuddel",
+              translation: "A mess"
+            },
+            {
+              original: "Erklarungsnot",
+              translation: "Emergency excuse"
+            },
+            {
+              original: "Geborgenheit",
+              translation: "Peace and comfort in life"
             }
           ]
         };

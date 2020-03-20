@@ -21,14 +21,21 @@ VALUES
 INSERT INTO "word" ("id", "language_id", "original", "translation", "next")
 VALUES
   (1, 1, 'Backpfeifengesicht',  'A slappable face', 2),
-  (2, 1, 'Lebensmude',          'Life tired', 3),
+  (2, 1, 'Lebensmude',          'Tired of life', 3),
   (3, 1, 'Gluhbirne',           'Glow pear', 4),
-  (4, 1, 'Sitzpinkler',         'Seat wee-er', 5),
-  (5, 1, 'Fingerspitzengefuhl', 'Fingertip feeling', 6),
-  (6, 1, 'Kummerspeck',         'Grief Bacon', 7),
-  (7, 1, 'Schnapsidee',          'Schnapps Idea', 8),
-  (8, 1, 'Fremdschamen ',       'Exterior shame' , 9),
-  (9, 1, 'Handschuschenschneeballwerfer', 'Hand shoe snowball thrower',null);
+  (4, 1, 'Sitzpinkler',         'Wimp', 5),
+  (5, 1, 'Fingerspitzengefuhl', 'Intinct', 6),
+  (6, 1, 'Kummerspeck',         'Excess fat gained from emotional eating', 7),
+  (7, 1, 'Schnapsidee',          'Crazy idea', 8),
+  (8, 1, 'Fremdschamen ',       'Embarrassed by someone' , 9),
+  (9, 1, 'Handschuschenschneeballwerfer', 'Coward', 10),
+  (10, 1, 'Treppenwitz', 'Brain fart', 11),
+  (11, 1, 'Verschlimmbessern', 'Make things worse',12),
+  (12, 1, 'Luftschloss', 'Need reality check',13),
+  (13, 1, 'Fruhjahrsmudigkeit', 'Fatigue during springtime',14),
+  (14, 1, 'Kuddelmuddel', 'A mess',15),
+  (15, 1, 'Erklarungsnot', 'Emergency excuse',16),
+  (16, 1, 'Geborgenheit', 'Peace and comfort in life',null);
 
 UPDATE "language" SET head = 1 WHERE id = 1;
 
