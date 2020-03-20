@@ -126,19 +126,28 @@ const LanguageService = {
             head: linkedLanguage.head.value.id
           }),
 
-        // we don't need to update each word = 10x
-        // we just need to update 2 words - the current word and the
+        // we need to update:
+        // 2 nodes with new next pointers
+        // previous node with the scores
         ...linkedLanguage.forEach(node => {
-          if (updatedNodes.includes(node.id)) {
-            // just added
+          let currNode;
+          let change = false;
+          if (updatedNodes[0].value.id === node.value.id) {
+            currNode = updatedNodes[0];
+            change = true;
+          } else if (updatedNodes[1].value.id === node.value.id) {
+            currNode = updatedNodes[1];
+            change = true;
+          }
+          if (change) {
             db.from("word")
               .transacting(trx)
               .where("id", node.value.id)
               .update({
-                memory_value: node.value.memory_value,
-                correct_count: node.value.correct_count,
-                incorrect_count: node.value.incorrect_count,
-                next: node.next ? node.next.value.id : null
+                memory_value: currNode.value.memory_value,
+                correct_count: currNode.value.correct_count,
+                incorrect_count: currNode.value.incorrect_count,
+                next: node.next ? currNode.next.value.id : null
               });
           }
         })

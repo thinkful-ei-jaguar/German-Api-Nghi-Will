@@ -84,18 +84,28 @@ class LinkedList {
     return [currNode.value.id, beforeNode.value.id];
   }
 
-  moveHeadBy(level) {
+  moveHeadBy(memoryValue) {
+    let tempNode = this.head.next;
+    let beforeNode = this._findNthElement(memoryValue);
+    debugger;
+    this.head.next = beforeNode.next;
+    beforeNode.next = this.head;
+    this.head = tempNode;
+    debugger;
+    return [beforeNode, beforeNode.next];
+    /*
     // Before we relocate the head, we want to find the
     let tempNode = this.head;
     this.head = this.head.next;
     // pass in the entire note
     // this.insertAt(level, tempNode.value);
     return this.insertAt(level, tempNode);
+    */
   }
 
   _findNthElement(position) {
     let node = this.head;
-    for (let i = 0; i < position - 1; i++) {
+    for (let i = 0; i < position; i++) {
       node = node.next;
     }
     return node;

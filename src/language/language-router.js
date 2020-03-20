@@ -76,12 +76,13 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
     });
 
   try {
+    debugger;
     const words = await LanguageService.getLanguageWords(
       req.app.get("db"),
       req.language.id
     );
 
-    let SLL = LanguageService.createLinkedListFrom(req.language, words);
+    let SLL = await LanguageService.createLinkedListFrom(req.language, words);
     const node = SLL.head;
     const answer = node.value.translation;
     let isCorrect;
@@ -96,10 +97,9 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
       SLL.head.value.memory_value = 1;
       SLL.head.value.incorrect_count++;
     }
-
+    debugger;
     // Re-position node in linked list and gets the 2 nodes that we made updates to
     const updatedNodes = await SLL.moveHeadBy(SLL.head.value.memory_value);
-
     function display(list) {
       let current = list.head;
       // Do while loop prints first then assess conditional statement
@@ -110,7 +110,7 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
       return;
     }
 
-    display(SLL);
+    // display(SLL);
 
     // Updates the scores in database
     await LanguageService.persistLinkedList(
