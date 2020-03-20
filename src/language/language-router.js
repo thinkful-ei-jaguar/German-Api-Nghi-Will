@@ -54,6 +54,7 @@ languageRouter.use(jsonParser).get("/head", async (req, res, next) => {
 
     res.status(200).json({
       nextWord: head.original,
+      answer: head.translation,
       totalScore: req.language.total_score,
       wordCorrectCount: head.correct_count,
       wordIncorrectCount: head.incorrect_count
