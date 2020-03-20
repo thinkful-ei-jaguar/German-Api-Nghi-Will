@@ -51,14 +51,11 @@ languageRouter.use(jsonParser).get("/head", async (req, res, next) => {
       req.language.id
     );
 
-    // Remove answer since when we post to the guess endpoint,
-    // we're going to get the answer from the db again and compare it to the guess
     res.status(200).json({
       nextWord: head.original,
       totalScore: req.language.total_score,
       wordCorrectCount: head.correct_count,
       wordIncorrectCount: head.incorrect_count
-      // answer : head.translation
     });
 
     next();
@@ -76,18 +73,18 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
     });
 
   try {
-    debugger;
+    // Get words from database
     const words = await LanguageService.getLanguageWords(
       req.app.get("db"),
       req.language.id
     );
 
-    let SLL = await LanguageService.createLinkedListFrom(req.language, words);
-    const node = SLL.head;
+    // Create linked list of words
+    let SLL = await LanguageService.createLinkedList(req.language, words);
 
-    const answer = node.value.translation;
+    // Update scores and double memory value if guess is correct
+    const answer = SLL.head.value.translation;
     let isCorrect;
-
     if (guess === answer) {
       isCorrect = true;
       SLL.head.value.memory_value *= 2;
@@ -98,14 +95,14 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
       SLL.head.value.memory_value = 1;
       SLL.head.value.incorrect_count++;
     }
-    debugger;
-    // Re-position node in linked list and gets the 2 nodes that we made updates to
-    const updatedNodes = await SLL.moveHeadBy(SLL.head.value.memory_value);
 
-    // Updates the scores in database
-    await LanguageService.persistLinkedList(req.app.get("db"), SLL);
+    // Relocate current word in linked list and get the 2 relocated words
+    const relocatedWords = await SLL.relocateHead(SLL.head.value.memory_value);
 
-    await LanguageService.updateStuff(req.app.get("db"), updatedNodes);
+    // Update total score in database
+    await LanguageService.updateTotalScore(req.app.get("db"), SLL);
+    // Update 2 relocated words in database
+    await LanguageService.updateWords(req.app.get("db"), relocatedWords);
 
     return res.status(200).json({
       nextWord: SLL.head.value.original,

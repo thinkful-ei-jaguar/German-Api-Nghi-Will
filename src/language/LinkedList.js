@@ -5,8 +5,10 @@ class _Node {
 }
 
 class LinkedList {
-  constructor() {
-    this.total_score = 0;
+  constructor(user_id, id, total_score = 0) {
+    this.user_id = user_id;
+    this.id = id;
+    this.total_score = total_score;
     this.head = null;
   }
 
@@ -57,48 +59,13 @@ class LinkedList {
     prevNode.next = new _Node(itemToInsert, currNode);
   }
 
-  insertAt(nthPosition, currNode) {
-    // nthPosition will always be 1 or greater because we initialize it to 1 in
-    // our database
-    // if (nthPosition < 0) {
-    //   throw new Error("Position error");
-    // }
-    // if (nthPosition === 0) {
-    //   this.insertFirst(itemToInsert);
-    // } else {
-    // const beforeNode = this._findNthElement(nthPosition - 1);
-    const beforeNode = this._findNthElement(nthPosition);
-    if (beforeNode === null) {
-      console.log("before node is null");
-    }
-    // creating a new node every time we make a guess
-    // but we only want to re-position the node
-    // we can just pass in the entire node and update the beforeNode next pointer
-    // and the current node next pointer
-
-    // const newNode = new _Node(itemToInsert, null);
-    // newNode.next = beforeNode.next;
-    currNode.next = beforeNode.next;
-    beforeNode.next = currNode;
-    // }
-    return [currNode.value.id, beforeNode.value.id];
-  }
-
-  moveHeadBy(memoryValue) {
+  relocateHead(memoryValue) {
     let tempNode = this.head.next;
     let beforeNode = this._findNthElement(memoryValue);
     this.head.next = beforeNode.next;
     beforeNode.next = this.head;
     this.head = tempNode;
     return [beforeNode, beforeNode.next];
-    /*
-    // Before we relocate the head, we want to find the
-    let tempNode = this.head;
-    this.head = this.head.next;
-    // pass in the entire note
-    // this.insertAt(level, tempNode.value);
-    return this.insertAt(level, tempNode);
-    */
   }
 
   _findNthElement(position) {
@@ -108,6 +75,7 @@ class LinkedList {
     }
     return node;
   }
+
   remove(item) {
     if (!this.head) {
       return null;

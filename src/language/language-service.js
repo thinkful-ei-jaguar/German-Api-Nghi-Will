@@ -48,12 +48,12 @@ const LanguageService = {
       .first();
   },
 
-  createLinkedListFrom(language, words) {
-    const SLL = new LinkedList();
-    SLL.user_id = language.user_id; // just added
-    SLL.id = language.id;
-    SLL.name = language.name;
-    SLL.total_score = language.total_score;
+  createLinkedList(language, words) {
+    const SLL = new LinkedList(
+      language.user_id,
+      language.id,
+      language.total_score
+    );
     let word = { next: language.head };
     while (word.next) {
       word = words.find(w => w.id === word.next);
@@ -69,49 +69,7 @@ const LanguageService = {
     return SLL;
   },
 
-  updateWord(db, id, data) {
-    return db
-      .from("word")
-      .where({ id })
-      .update({ ...data });
-  },
-
-  updateTotalScore(db, user_id) {
-    // Get current score and increment 1
-    const total_score =
-      db
-        .from("language")
-        .select("total_score")
-        .where({ user_id }) + 1;
-
-    return db
-      .from("language")
-      .where({ user_id })
-      .update({ total_score });
-  },
-  getTotalScore(db, user_id) {
-    return db
-      .from("language")
-      .select("language.total_score")
-      .where("language.user_id", user_id)
-      .first();
-  },
-
-  getOnDeck(db, head) {
-    return db
-      .from("word")
-      .select("translation", "original", "correct_count", "incorrect_count")
-      .where("word.id", head)
-      .then(word => {
-        return {
-          answer: word[0].translation,
-          nextWord: word[0].original,
-          wordCorrectCount: word[0].correct_count,
-          wordIncorrectCount: word[0].incorrect_count
-        };
-      });
-  },
-  updateStuff(db, updatedNodes) {
+  updateWords(db, updatedNodes) {
     return db.transaction(trx => {
       let queries = [];
       updatedNodes.forEach(node => {
@@ -134,7 +92,7 @@ const LanguageService = {
     });
   },
 
-  persistLinkedList(db, linkedLanguage) {
+  updateTotalScore(db, linkedLanguage) {
     return db
       .from("language")
       .where("user_id", linkedLanguage.user_id)
