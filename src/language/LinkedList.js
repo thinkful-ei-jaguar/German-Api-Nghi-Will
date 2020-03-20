@@ -87,11 +87,9 @@ class LinkedList {
   moveHeadBy(memoryValue) {
     let tempNode = this.head.next;
     let beforeNode = this._findNthElement(memoryValue);
-    debugger;
     this.head.next = beforeNode.next;
     beforeNode.next = this.head;
     this.head = tempNode;
-    debugger;
     return [beforeNode, beforeNode.next];
     /*
     // Before we relocate the head, we want to find the
