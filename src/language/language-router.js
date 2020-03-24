@@ -97,7 +97,9 @@ languageRouter.post("/guess", jsonParser, async (req, res, next) => {
       SLL.head.value.incorrect_count++;
     }
 
-    // Relocate current word in linked list and get the 2 relocated words
+    /*
+    *  Relocate current word in linked list and get the 2 relocated words
+    */
     const relocatedWords = await SLL.relocateHead(SLL.head.value.memory_value);
 
     // Update total score in database
