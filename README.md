@@ -8,6 +8,11 @@ Uses spaced repetition algorithm to help users learn a foreign language. The fea
 - Check if an attempt translation is correct
 - Create user account
 
+## Authors
+
+- Nghi Tran
+- William MacNeil
+
 ## Tech Stack
 
 Server
