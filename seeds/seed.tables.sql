@@ -24,7 +24,7 @@ VALUES
   (2, 1, 'Lebensmude',          'Tired of life', 3),
   (3, 1, 'Gluhbirne',           'Glow pear', 4),
   (4, 1, 'Sitzpinkler',         'Wimp', 5),
-  (5, 1, 'Fingerspitzengefuhl', 'Intinct', 6),
+  (5, 1, 'Fingerspitzengefuhl', 'Instinct', 6),
   (6, 1, 'Kummerspeck',         'Excess fat gained from emotional eating', 7),
   (7, 1, 'Schnapsidee',          'Crazy idea', 8),
   (8, 1, 'Fremdschamen ',       'Embarrassed by someone' , 9),
